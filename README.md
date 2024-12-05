@@ -1,6 +1,4 @@
-Aqui está um exemplo de como documentar o que foi feito no arquivo `README.md`. Você pode usar esse modelo e personalizá-lo de acordo com o seu projeto.
-
----
+![alt text](image.png)
 
 # **Task Manager - Documentação**
 
