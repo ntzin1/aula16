@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+Aqui está um exemplo de como documentar o que foi feito no arquivo `README.md`. Você pode usar esse modelo e personalizá-lo de acordo com o seu projeto.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# **Task Manager - Documentação**
 
-In the project directory, you can run:
+Este projeto é um gerenciador de tarefas simples construído com React. Ele exibe uma lista de tarefas com título e descrição e permite modularizar os componentes React para melhor organização.
 
-### `npm start`
+## **Componentes Criados**
+Abaixo está a descrição de cada componente criado no projeto:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### **1. Header**
+**Descrição:** O componente `Header` é responsável por exibir o título principal do projeto.
 
-### `npm test`
+**Código do componente:**
+```jsx
+import React from 'react';
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function Header() {
+  return (
+    <header>
+      <h1>Gerenciador de Tarefas</h1>
+    </header>
+  );
+}
 
-### `npm run build`
+export default Header;
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Explicação do código:**
+- O componente retorna um elemento `<header>` com um título `<h1>` que contém o nome do projeto.
+- É um componente funcional simples que não possui estado ou propriedades.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **2. Task**
+**Descrição:** O componente `Task` é responsável por renderizar uma tarefa individual, exibindo o título e a descrição passados como `props`.
 
-### `npm run eject`
+**Código do componente:**
+```jsx
+import React from 'react';
+import PropTypes from 'prop-types';
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+function Task({ title, description }) {
+  return (
+    <div className="task">
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+  );
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Task.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default Task;
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Explicação do código:**
+- O componente usa **props** para receber o `title` (título da tarefa) e `description` (descrição da tarefa).
+- A validação das `props` é feita usando o pacote `prop-types`, garantindo que `title` e `description` sejam do tipo string e obrigatórios.
+- Retorna um bloco `<div>` que contém um `<h3>` para o título e um `<p>` para a descrição.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **3. TaskContainer**
+**Descrição:** O componente `TaskContainer` é responsável por renderizar uma lista de tarefas. Ele utiliza o componente `Task` para exibir cada tarefa individual.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Código do componente:**
+```jsx
+import React from 'react';
+import Task from './Task';
 
-### Code Splitting
+function TaskContainer() {
+  const tasks = [
+    { id: 1, title: 'Estudar React', description: 'Estudar os fundamentos do React e criar um projeto simples.' },
+    { id: 2, title: 'Comprar Mantimentos', description: 'Ir ao mercado para comprar frutas, vegetais e laticínios.' },
+    { id: 3, title: 'Fazer Exercícios', description: 'Praticar yoga e uma corrida leve no parque.' },
+    { id: 4, title: 'Assistir Filme', description: 'Assistir a um filme de comédia para relaxar.' },
+  ];
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  return (
+    <div>
+      {tasks.map((task) => (
+        <Task key={task.id} title={task.title} description={task.description} />
+      ))}
+    </div>
+  );
+}
 
-### Analyzing the Bundle Size
+export default TaskContainer;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Explicação do código:**
+- Define um array `tasks` com 4 tarefas, onde cada tarefa possui `id`, `title` e `description`.
+- Usa o método `.map()` para iterar sobre o array `tasks` e renderizar um componente `Task` para cada item.
+- Passa `title` e `description` como `props` para o componente `Task`.
+- A `key` única para cada tarefa é o `id`, para garantir que o React gerencie a lista corretamente.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### **4. App**
+**Descrição:** O componente `App` é o componente principal do projeto. Ele organiza e integra os componentes `Header` e `TaskContainer`.
 
-### Advanced Configuration
+**Código do componente:**
+```jsx
+import React from 'react';
+import Header from './components/Header';
+import TaskContainer from './components/TaskContainer';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      <TaskContainer />
+    </div>
+  );
+}
 
-### Deployment
+export default App;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Explicação do código:**
+- Importa os componentes `Header` e `TaskContainer`.
+- Renderiza os dois componentes em uma estrutura simples dentro de uma `<div>` com a classe `"App"`.
+- Serve como ponto de entrada do aplicativo.
