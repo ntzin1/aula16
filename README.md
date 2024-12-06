@@ -1,34 +1,7 @@
-![alt text](image-1.png)
-## Alterações Realizadas
+Aqui está um exemplo de como documentar o que foi feito no arquivo `README.md`. Você pode usar esse modelo e personalizá-lo de acordo com o seu projeto.
 
-1. **Uso de Estado no `TaskContainer`**:
-   - Substituímos a lista estática de tarefas por um estado gerenciado com o hook `useState`.
-   - Inicializamos o estado com a lista de tarefas existente.
+---
 
-2. **Função `addTask`**:
-   - Criamos uma função que gera uma nova tarefa com um `id` único, um título fixo e uma descrição.
-   - Atualizamos a lista de tarefas usando o método `setTasks`, adicionando a nova tarefa à lista existente.
-
-3. **Adição de um Botão**:
-   - Incluímos um botão acima da lista de tarefas.
-   - O botão chama a função `addTask` ao ser clicado, adicionando uma nova tarefa à lista.
-
-## Resultado
-Ao clicar no botão "Adicionar Tarefa", uma nova tarefa é adicionada dinamicamente à lista e exibida no componente.
-
-## Arquivos Modificados
-### `TaskContainer.js`
-- Implementação do estado com `useState`.
-- Adição da função `addTask`.
-- Inclusão de um botão para interação com a lista.
-
-
-
-
-
-
-
-![alt text](image.png)
 # **Task Manager - Documentação**
 
 Este projeto é um gerenciador de tarefas simples construído com React. Ele exibe uma lista de tarefas com título e descrição e permite modularizar os componentes React para melhor organização.
