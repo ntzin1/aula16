@@ -1,3 +1,210 @@
+### Documentação dos Componentes Criados
+
+Esta documentação fornece uma explicação detalhada sobre cada componente desenvolvido para os exercícios de `useRef` e `useContext` no React, bem como o propósito de cada um.
+
+---
+
+### **1. FocoInput**
+#### **Propósito**
+O componente `FocoInput` permite que o usuário clique em um botão para focar automaticamente em um campo de entrada de texto. Ele demonstra o uso do hook `useRef` para acessar uma referência ao elemento DOM.
+
+#### **Código**
+```jsx
+import React, { useRef } from 'react';
+
+function FocoInput() {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    inputRef.current.focus(); // Foca no input
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} placeholder="Digite algo" />
+      <button onClick={handleFocus}>Focar no Input</button>
+    </div>
+  );
+}
+
+export default FocoInput;
+```
+
+#### **Explicação do Código**
+1. **useRef:** Cria uma referência ao elemento DOM do input.
+2. **handleFocus:** Usa a referência para chamar o método `focus()` e dar foco no campo de entrada.
+3. **Estrutura:** O componente inclui um campo de entrada e um botão que aciona o foco.
+
+---
+
+### **2. Cronometro**
+#### **Propósito**
+O componente `Cronometro` é um cronômetro que permite iniciar, pausar e resetar uma contagem de segundos. Ele demonstra o uso de `useRef` para armazenar a referência do `setInterval`.
+
+#### **Código**
+```jsx
+import React, { useState, useRef } from 'react';
+
+function Cronometro() {
+  const [segundos, setSegundos] = useState(0);
+  const intervaloRef = useRef(null);
+
+  const iniciar = () => {
+    if (!intervaloRef.current) {
+      intervaloRef.current = setInterval(() => {
+        setSegundos((prev) => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const pausar = () => {
+    clearInterval(intervaloRef.current);
+    intervaloRef.current = null;
+  };
+
+  const resetar = () => {
+    pausar();
+    setSegundos(0);
+  };
+
+  return (
+    <div>
+      <h1>Cronômetro: {segundos}s</h1>
+      <button onClick={iniciar}>Iniciar</button>
+      <button onClick={pausar}>Pausar</button>
+      <button onClick={resetar}>Resetar</button>
+    </div>
+  );
+}
+
+export default Cronometro;
+```
+
+#### **Explicação do Código**
+1. **useState:** Gerencia o estado da contagem de segundos.
+2. **useRef:** Armazena a referência do timer criado com `setInterval`.
+3. **Funções:**
+   - **iniciar:** Inicia o cronômetro se ele não estiver em execução.
+   - **pausar:** Pausa o cronômetro limpando o intervalo.
+   - **resetar:** Pausa o cronômetro e reseta a contagem para zero.
+
+---
+
+### **3. TemaContext (Contexto de Tema)**
+#### **Propósito**
+Este contexto permite alternar entre os temas claro e escuro em uma aplicação React. Ele utiliza `useContext` para compartilhar o estado do tema entre diferentes componentes.
+
+#### **Código do Contexto**
+**Arquivo:** `TemaContext.jsx`
+```jsx
+import React, { createContext, useState, useContext } from 'react';
+
+const TemaContext = createContext();
+
+export function TemaProvider({ children }) {
+  const [tema, setTema] = useState('claro');
+
+  const alternarTema = () => {
+    setTema((prevTema) => (prevTema === 'claro' ? 'escuro' : 'claro'));
+  };
+
+  return (
+    <TemaContext.Provider value={{ tema, alternarTema }}>
+      {children}
+    </TemaContext.Provider>
+  );
+}
+
+export function useTema() {
+  return useContext(TemaContext);
+}
+```
+
+#### **Componentes Associados**
+
+**a) ExibirTema**
+- Exibe o tema atual (claro ou escuro).
+
+**Código:**
+```jsx
+import React from 'react';
+import { useTema } from '../context/TemaContext';
+
+function ExibirTema() {
+  const { tema } = useTema();
+
+  return <h1>Tema atual: {tema}</h1>;
+}
+
+export default ExibirTema;
+```
+
+**b) AlternarTema**
+- Permite alternar entre os temas claro e escuro.
+
+**Código:**
+```jsx
+import React from 'react';
+import { useTema } from '../context/TemaContext';
+
+function AlternarTema() {
+  const { alternarTema } = useTema();
+
+  return <button onClick={alternarTema}>Alternar Tema</button>;
+}
+
+export default AlternarTema;
+```
+
+#### **Componente Principal**
+- Combina todos os componentes e prove o contexto de tema.
+
+**Código:**
+```jsx
+import React from 'react';
+import { TemaProvider } from './context/TemaContext';
+import FocoInput from './components/FocoInput';
+import Cronometro from './components/Cronometro';
+import ExibirTema from './components/ExibirTema';
+import AlternarTema from './components/AlternarTema';
+
+function App() {
+  return (
+    <TemaProvider>
+      <div>
+        <h1>Exercícios React</h1>
+        <h2>Exercício 1: Foco no Input</h2>
+        <FocoInput />
+        <h2>Exercício 2: Cronômetro</h2>
+        <Cronometro />
+        <h2>Exercício 3: Contexto de Tema</h2>
+        <ExibirTema />
+        <AlternarTema />
+      </div>
+    </TemaProvider>
+  );
+}
+
+export default App;
+```
+
+#### **Explicação do Fluxo**
+1. **TemaContext:** Gerencia o estado do tema e fornece a função para alternâ-lo.
+2. **ExibirTema:** Usa o contexto para mostrar o tema atual.
+3. **AlternarTema:** Usa o contexto para alternar o tema entre claro e escuro.
+4. **App:** Envolve os componentes no `TemaProvider` para que todos possam acessar o contexto.
+
+---
+
+Se precisar de mais detalhes ou ajustes, é só avisar!
+
+
+
+
+
+
+
+
 ![alt text](image-1.png)
 ## Alterações Realizadas
 
